@@ -115,21 +115,25 @@ begin
      try
      I := 1;
      Client := TFPHttpClient.Create(nil);
-     RegEx := TRegExpr.Create;
-     RegEx.Expression := RegExprString('(\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b)(<\/td><td>)(\d{2,5})\2(\D{2})(<\/td><td class=''\D{2}''>)(\b\w*\b)\2(Socks\d{1})\5(\b\w*\b)');
-     if RegEx.Exec(Client.Get(Source))
-     then begin
-          repeat
-          IPAddress := RegEx.Match[1];
-          Port := RegEx.Match[3];
-          CountryCode := Regex.Match[4];
-          Country := RegEx.Match[6];
-          Version := RegEx.Match[7];
-          Rating := Regex.Match[8];
-          StringGrid1.InsertRowWithValues(I,[Version, IPAddress, Port, Country, Rating, CountryCode]);
-          I := I + 1;
-          until not RegEx.ExecNext;
-     end;
+     Client.AllowRedirect := True;
+     Client.AddHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246');
+     begin
+          RegEx := TRegExpr.Create;
+          RegEx.Expression := RegExprString('(\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b)(<\/td><td>)(\d{2,5})\2(\D{2})(<\/td><td class=''\D{2}''>)(\b\w*\b)\2(Socks\d{1})\5(\b\w*\b)');
+          if RegEx.Exec(Client.Get(Source))
+             then begin
+                  repeat
+                  IPAddress := RegEx.Match[1];
+                  Port := RegEx.Match[3];
+                  CountryCode := Regex.Match[4];
+                  Country := RegEx.Match[6];
+                  Version := RegEx.Match[7];
+                  Rating := Regex.Match[8];
+                  StringGrid1.InsertRowWithValues(I,[Version, IPAddress, Port, Country, Rating, CountryCode]);
+                  I := I + 1;
+                  until not RegEx.ExecNext;
+             end;
+        end;
      finally
             Client.Free;
             RegEx.Free;
@@ -159,10 +163,7 @@ begin
               I := 1;
               repeat
               Row := StringGrid1.Rows[I];
-
-              //Temporary socks5 assignment
-              Row[0] := 'socks5';
-
+              Row[0] := 'socks5'; //Temporary socks5 assignment
               WriteLn(ProxyFile, LowerCase(Row[0] + '   ' + Row[1] + '   ' + Row[2]));
               Memo1.Append(Row[1] + ':' + Row[2]);
               I := I + 1;
