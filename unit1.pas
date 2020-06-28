@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, LCLType, StdCtrls, ComCtrls,
-  Menus, Grids, ExtCtrls, FPHTTPClient, OpenSSL, RegExpr, Process, ShellCommandRunner;
+  Menus, Grids, ExtCtrls, FPHTTPClient, OpenSSL, RegExpr, ShellCommandRunner;
 
 type
 
@@ -69,10 +69,13 @@ type
   end;
 const
   Token = 'ntaBpoRda7GYvTKkEin2arEmcWWAHg1YYHu5szfxsJA';
-  ProxyConf = 'proxychains.conf';
   Socks4Source = 'https://www.socks-proxy.net';
-  Socks5Source = 'http://www.gatherproxy.com/sockslist';
+  Socks5Source = 'https://www.gatherproxy.com/sockslist';
   HTTPsSource = 'https://www.free-proxy-list.net';
+  ProxyConf = '\dep\proxychains\proxychains.conf';
+  Sqlmap = '\dep\sqlmap\sqlmap.py';
+  Wpscan = '\dep\wpscan\lib\wpscan.rb';
+  ProxychainsPath = '\dep\proxychains\proxychains_win32_x64.exe';
 var
   Form1: TForm1;
   Client: TFPHttpClient;
@@ -98,6 +101,7 @@ var
   OutputLines: TStringList;
   Row: TStrings;
   I, Reply, BoxStyle: Integer;
+  CurrentDir: String;
 
 implementation
 
@@ -144,16 +148,21 @@ end;
 
 procedure TForm1.MenuItem2Click(Sender: TObject);
 begin
+     CurrentDir := GetCurrentDir();
      BoxStyle := MB_ICONQUESTION + MB_YESNO;
      Reply := Application.MessageBox('Append the proxy list to proxychains-ng?', 'Network Proxies', BoxStyle);
      if Reply = IDYES then begin
-     AssignFile(ProxyFile, ProxyConf);
+     AssignFile(ProxyFile, CurrentDir + ProxyConf);
      Append(ProxyFile);
           if StringGrid1.RowCount > 1 then begin
            try
               I := 1;
               repeat
               Row := StringGrid1.Rows[I];
+
+              //Temporary socks5 assignment
+              Row[0] := 'socks5';
+
               WriteLn(ProxyFile, LowerCase(Row[0] + '   ' + Row[1] + '   ' + Row[2]));
               Memo1.Append(Row[1] + ':' + Row[2]);
               I := I + 1;
@@ -185,13 +194,14 @@ end;
 
 procedure TForm1.ToggleBox1Click(Sender: TObject);
 begin
+     CurrentDir := GetCurrentDir();
      if (CheckBox13.Checked) then Quiet := '-q';
      if (not CheckBox13.Checked) then Quiet := '';
      if (CheckBox5.Checked) then RandomAgent := '--random-agent';
      if (not CheckBox5.Checked) then RandomAgent := '';
      if (CheckBox6.Checked) then MySQL := '--dbms=MySQL';
      if (not CheckBox6.Checked) then MySQL := '';
-     if (Checkbox4.Checked) then Proxychains := 'proxychains4 ' + Quiet + ' -f ' + ProxyConf;
+     if (Checkbox4.Checked) then Proxychains := CurrentDir + ProxychainsPath + ' ' + Quiet + ' -f ' + CurrentDir + ProxyConf + ' ';
      if (not Checkbox4.Checked) then Proxychains := '';
      if (not ToggleBox1.Checked) then begin
         Edit2.Text := 'aborted';
@@ -200,7 +210,7 @@ begin
      if (ToggleBox1.Checked) then begin
      Execution := TShellCommandRunnerThread.Create;
      if (RadioButton1.Checked) then begin
-        Command := Proxychains + ' sqlmap --eta --beep ' + MySQL + ' -u ' + Edit1.Text + ' --threads=' + IntToStr(TrackBar1.Position) + ' --forms --crawl=2 ' + RandomAgent;
+        Command := Proxychains + 'python.exe ' + CurrentDir + Sqlmap + ' --eta --beep ' + MySQL + ' -u ' + Edit1.Text + ' --threads=' + IntToStr(TrackBar1.Position) + ' --forms --crawl=2 ' + RandomAgent;
         Execution.CommandLine := Command;
         Execution.OnOutputAvailable := @OnOutputAvailable;
         Edit2.Text := (Command.TrimLeft(' ').TrimRight(' '));
@@ -213,7 +223,7 @@ begin
         if (not CheckBox14.Checked) then DatabaseUpdate := '--no-update';
         if (CheckBox5.Checked) then RandomAgent := '--random-user-agent';
         if (CheckBox11.Checked) then RandomAgent := '--stealthy';
-        Command := Proxychains + ' wpscan --no-banner ' + Verbose + ' ' + DatabaseUpdate + ' --enumerate vp --format cli-no-colour --url ' + Edit1.Text + ' --max-threads ' + IntToStr(TrackBar1.Position) + ' --request-timeout 120 --connect-timeout 60 --api-token ' + Token + ' ' + RandomAgent;
+        Command := Proxychains + 'ruby.exe ' + CurrentDir + Wpscan + ' --no-banner ' + Verbose + ' ' + DatabaseUpdate + ' --enumerate vp --format cli-no-colour --url ' + Edit1.Text + ' --max-threads ' + IntToStr(TrackBar1.Position) + ' --request-timeout 120 --connect-timeout 60 --api-token ' + Token + ' ' + RandomAgent;
         Execution.CommandLine := Command;
         Execution.OnOutputAvailable := @OnOutputAvailable;
         Edit2.Text := (Command.TrimLeft(' ').TrimRight(' '));
