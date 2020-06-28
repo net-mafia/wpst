@@ -223,7 +223,7 @@ begin
         if (not CheckBox14.Checked) then DatabaseUpdate := '--no-update';
         if (CheckBox5.Checked) then RandomAgent := '--random-user-agent';
         if (CheckBox11.Checked) then RandomAgent := '--stealthy';
-        Command := Proxychains + 'C:\Ruby27-x64\bin\ruby.exe ' + CurrentDir + Wpscan + ' --no-banner ' + Verbose + ' ' + DatabaseUpdate + ' --enumerate vp --format cli-no-colour --url ' + Edit1.Text + ' --max-threads ' + IntToStr(TrackBar1.Position) + ' --request-timeout 120 --connect-timeout 60 --api-token ' + Token + ' ' + RandomAgent;
+        Command := Proxychains + 'ruby.exe ' + CurrentDir + Wpscan + ' --no-banner ' + Verbose + ' ' + DatabaseUpdate + ' --enumerate vp --format cli-no-colour --url ' + Edit1.Text + ' --max-threads ' + IntToStr(TrackBar1.Position) + ' --request-timeout 120 --connect-timeout 60 --api-token ' + Token + ' ' + RandomAgent;
         Execution.CommandLine := Command;
         Execution.OnOutputAvailable := @OnOutputAvailable;
         Edit2.Text := (Command.TrimLeft(' ').TrimRight(' '));
