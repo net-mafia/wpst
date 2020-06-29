@@ -5995,7 +5995,7 @@ object Form1: TForm1
     ClientWidth = 572
     TabOrder = 0
     object Button1: TButton
-      Left = 426
+      Left = 464
       Height = 28
       Top = 5
       Width = 104
@@ -6169,7 +6169,7 @@ object Form1: TForm1
     AnchorSideTop.Side = asrCenter
     AnchorSideRight.Side = asrCenter
     AnchorSideBottom.Side = asrCenter
-    Left = 589
+    Left = 588
     Height = 386
     Top = 86
     Width = 128
@@ -6183,7 +6183,7 @@ object Form1: TForm1
     object CheckBox5: TCheckBox
       Left = 3
       Height = 19
-      Top = 288
+      Top = 264
       Width = 112
       Caption = 'Random '#10'User-Agent'
       Font.Height = -9
@@ -6207,9 +6207,9 @@ object Form1: TForm1
     object CheckBox7: TCheckBox
       Left = 3
       Height = 19
-      Top = 56
-      Width = 100
-      Caption = 'Optimize'#10'Switches'
+      Top = 48
+      Width = 96
+      Caption = 'Optimize Switches'
       Font.Height = -9
       Font.Name = 'Sans'
       ParentFont = False
@@ -6218,9 +6218,9 @@ object Form1: TForm1
     object CheckBox8: TCheckBox
       Left = 3
       Height = 19
-      Top = 88
-      Width = 97
-      Caption = 'Fingerprint'#10'DBMS'
+      Top = 72
+      Width = 100
+      Caption = 'Fingerprint '#10'DBMS'
       Font.Height = -9
       Font.Name = 'Sans'
       ParentFont = False
@@ -6229,9 +6229,9 @@ object Form1: TForm1
     object CheckBox9: TCheckBox
       Left = 3
       Height = 19
-      Top = 120
-      Width = 98
-      Caption = 'Retrieve'#10'Records'
+      Top = 96
+      Width = 101
+      Caption = 'Retrieve'#10' Records'
       Font.Height = -9
       Font.Name = 'Sans'
       ParentFont = False
@@ -6240,9 +6240,9 @@ object Form1: TForm1
     object CheckBox10: TCheckBox
       Left = 3
       Height = 19
-      Top = 152
-      Width = 83
-      Caption = 'Fresh'#10'Queries'
+      Top = 120
+      Width = 86
+      Caption = 'Fresh '#10'Queries'
       Font.Height = -9
       Font.Name = 'Sans'
       ParentFont = False
@@ -6263,7 +6263,7 @@ object Form1: TForm1
     object Label4: TLabel
       Left = 3
       Height = 14
-      Top = 176
+      Top = 152
       Width = 41
       Caption = 'WPScan'
       Font.Color = clGray
@@ -6275,7 +6275,7 @@ object Form1: TForm1
     object CheckBox11: TCheckBox
       Left = 3
       Height = 19
-      Top = 192
+      Top = 168
       Width = 55
       Caption = 'Stealthy'
       Font.Height = -9
@@ -6286,7 +6286,7 @@ object Form1: TForm1
     object CheckBox12: TCheckBox
       Left = 3
       Height = 19
-      Top = 216
+      Top = 192
       Width = 54
       Caption = 'Verbose'
       Checked = True
@@ -6299,7 +6299,7 @@ object Form1: TForm1
     object Label5: TLabel
       Left = 3
       Height = 14
-      Top = 272
+      Top = 248
       Width = 38
       Caption = 'General'
       Font.Color = clGrayText
@@ -6311,27 +6311,27 @@ object Form1: TForm1
     object CheckBox14: TCheckBox
       Left = 3
       Height = 19
-      Top = 240
-      Width = 100
-      Caption = 'Update'#10'Database '
+      Top = 216
+      Width = 103
+      Caption = 'Update '#10'Database '
       Font.Height = -9
       Font.Name = 'Sans'
       ParentFont = False
       TabOrder = 8
     end
     object Button2: TButton
-      Left = 5
+      Left = 3
       Height = 29
-      Top = 331
+      Top = 320
       Width = 77
       Caption = 'Reset'
       OnClick = Button2Click
       TabOrder = 9
     end
     object Label6: TLabel
-      Left = 5
+      Left = 3
       Height = 14
-      Top = 312
+      Top = 304
       Width = 39
       Caption = 'Console'
       Font.Color = clGrayText
