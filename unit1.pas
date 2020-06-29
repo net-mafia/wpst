@@ -154,7 +154,7 @@ procedure TForm1.MenuItem2Click(Sender: TObject);
 begin
      CurrentDir := GetCurrentDir();
      BoxStyle := MB_ICONQUESTION + MB_YESNO;
-     Reply := Application.MessageBox('Append the proxy list to proxychains-ng?', 'Network Proxies', BoxStyle);
+     Reply := Application.MessageBox('Append this proxy list to proxychains?', 'Network Proxies', BoxStyle);
      if Reply = IDYES then begin
      AssignFile(ProxyFile, CurrentDir + ProxyConf);
      Append(ProxyFile);
