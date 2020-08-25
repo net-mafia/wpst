@@ -1,2 +1,2 @@
 # WordPress Security Tool
-Application frontend for wp-scan and sqlmap designed for new users.
+Frontend application for wp-scan and sqlmap designed for new users.
