@@ -42,6 +42,7 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
     MainMenu1: TMainMenu;
     Memo1: TMemo;
     MenuItem1: TMenuItem;
@@ -62,6 +63,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure ToggleBox1Click(Sender: TObject);
     procedure ToggleBox1Change(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
   private
     procedure OnOutputAvailable(const bytes: PByteArray; const return: integer);
   public
@@ -191,6 +193,11 @@ begin
         ToggleBox1.Caption := 'Abort';
      if (not ToggleBox1.Checked) then
         ToggleBox1.Caption := 'Attack';
+end;
+
+procedure TForm1.TrackBar1Change(Sender: TObject);
+begin
+  Label8.Caption := IntToStr(TrackBar1.Position);
 end;
 
 procedure TForm1.ToggleBox1Click(Sender: TObject);
