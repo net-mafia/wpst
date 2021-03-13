@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, LCLType, StdCtrls, ComCtrls,
-  Menus, Grids, ExtCtrls, FPHTTPClient, OpenSSL, RegExpr, ShellCommandRunner;
+  Menus, Grids, ExtCtrls, FPHTTPClient, OpenSSLSockets, RegExpr, ShellCommandRunner;
 
 type
 
